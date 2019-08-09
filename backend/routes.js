@@ -6,16 +6,18 @@ module.exports = function(server, db) {
 
 
   server.post('/send',async (req, res) => {
-
-    db.collection("users").insertOne(req.body, function(err, result){
-        if(err){
-          return console.log(err);
-        } else {
-          console.log(result);
-          res
-            .status(200)
-            .send({ data: 'ok' })
-        }
-    });
+const data = req.body;
+console.log(body);
+    // const collection = db.collection("users");
+    //     collection.insertOne(req.body, function(err, result){
+    //     if(err){
+    //       return console.log(err);
+    //     } else {
+    //       console.log(result);
+    //       res
+    //         .status(200)
+    //         .send({ data: 'ok' })
+    //     }
+    // });
   });
 };

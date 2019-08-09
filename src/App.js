@@ -8,7 +8,6 @@ function App() {
 
   const serializeJSON = data => Object.keys(data).map(keyName => `${encodeURIComponent(keyName)}=${encodeURIComponent(data[keyName])}`).join('&');
   const send = async data => {
-  console.log(data.electrode);
     await fetch('http://localhost:3020/send', {
 method: 'POST',
     headers: {
@@ -22,14 +21,13 @@ method: 'POST',
 
   const start = async () => {
     await client.connect();
-    console.log(client);
     await client.start();
+    console.log(client);
     let fullData = {};
     client.eegReadings.subscribe(  reading => {
       Object.assign(fullData, reading);
       fullData.deviceName = client.deviceName;
      send(fullData);
-      // console.log(reading);
     });
   };
 
