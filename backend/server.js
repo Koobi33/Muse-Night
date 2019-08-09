@@ -15,8 +15,10 @@ MongoClient.connect(db.url,  { useNewUrlParser: true }, (err, database) => {
   if (err) return console.log(err);
 
   const db = database.db("usersdb");
-  server.get('/', (req, res) => {
-    res.send('hello from ROOT');
+  server.get('/', async (req, res) => {
+    const fullData = await db.collection("users").find();
+    console.log(fullData);
+    res.send(fullData);
   });
 
   server.post('/send',async (req, res) => {
