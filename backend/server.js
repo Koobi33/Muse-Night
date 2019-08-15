@@ -3,6 +3,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const MongoClient = require("mongodb").MongoClient;
 const db = require('./dbconfig');
+const fs = require('fs');
 
 const server = express();
 const PORT = process.env.PORT || 3020;
@@ -16,13 +17,19 @@ MongoClient.connect(db.url,  { useNewUrlParser: true }, (err, database) => {
 
   const db = database.db("usersdb");
   server.get('/', async (req, res) => {
-    await db.collection("users").find({}).toArray((err, result) => {
+    await db.collection("prod").find({}).toArray((err, result) => {
       if(err) {
         console.log(err)
       } else {
-        console.log(result);
+        fs.writeFile("result", result, function(err) {
+          if(err) {
+            return console.log(err);
+          }
+
+          console.log("The file was saved!");
+        });
         res.status(200);
-        res.send(result)
+        res.send('ok')
       }
     });
     // console.log(fullData);
