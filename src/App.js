@@ -27,7 +27,8 @@ method: 'POST',
     client.eegReadings.subscribe(  reading => {
       Object.assign(fullData, reading);
       fullData.deviceName = client.deviceName;
-     send(fullData);
+     // send(fullData);
+      console.log(fullData);
     });
   };
 

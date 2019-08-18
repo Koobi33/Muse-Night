@@ -1,0 +1,21 @@
+{
+  "name": "muse-fft",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@neurosity/pipes": "^3.0.2",
+    "chart.js": "^2.7.2",
+    "muse-js": "^3.0.1",
+    "react": "next",
+    "react-chartjs-2": "^2.7.2",
+    "react-dom": "next",
+    "react-scripts": "1.1.4",
+    "victory": "^32.3.6"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}
