@@ -10,6 +10,7 @@
     "react-chartjs-2": "^2.7.2",
     "react-dom": "next",
     "react-scripts": "1.1.4",
+    "react-youtube": "^7.9.0",
     "victory": "^32.3.6"
   },
   "scripts": {

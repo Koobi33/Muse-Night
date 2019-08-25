@@ -3,6 +3,7 @@ import { zipSamples, MuseClient } from 'muse-js';
 import { powerByBand, epoch, fft } from "@neurosity/pipes";
 import { VictoryLine, VictoryChart, VictoryAxis,
     VictoryZoomContainer, VictoryBrushContainer } from 'victory';
+import YouTube from 'react-youtube';
 
 import './MuseFFT.css';
 
@@ -40,11 +41,32 @@ export class MuseFFT extends Component {
     };
 
     render() {
+        const opts = {
+            height: '390',
+            width: '640',
+            playerVars: { // https://developers.google.com/youtube/player_parameters
+                autoplay: 1
+            }};
         return (
             <div className='MuseFFT'>
                 <button disabled={this.state.button_disabled} onClick={this.connect}>Connect Muse Headband</button>
                 <button disabled={!this.state.button_disabled} onClick={this.stop}>Stop Muse Headband</button>
                 <p>{this.state.status}</p>
+                <YouTube
+                    videoId="2g811Eo7K8U"
+                    opts={opts}
+                    onReady={this._onReady}
+                    onPlay={event => {
+                        if (this.state.status === 'Disconnected') {
+                            event.target.pauseVideo();
+                            this.connect().then(() => {
+                                setTimeout(() => {
+                                    event.target.playVideo()
+                                }, 5000);
+                            });
+                        }
+                    }}
+                />
                 <div style={chartSectionStyle}>
                     <div>
                         <VictoryChart
@@ -88,11 +110,14 @@ export class MuseFFT extends Component {
                                 y="beta"
                             />
                         </VictoryChart>
-
                     </div>
                 </div>
             </div>
         );
+    }
+    _onReady(event) {
+        // access to player in all event handlers via event.target
+            event.target.pauseVideo();
     }
      client = new MuseClient();
     stop = async () =>  {
