@@ -18,6 +18,7 @@ let finalData = [{
     beta: 2
 }];
 
+let time = 0;
 export class MuseFFT extends Component {
 
     state = {
@@ -25,6 +26,7 @@ export class MuseFFT extends Component {
         status: 'Disconnected',
         button_disabled: false,
         zoomDomain: {x: [new Date().getSeconds(), new Date().getSeconds() + 1]},
+        videoID: 'A36LahZNUiE',
     };
 
     handleZoom(domain) {
@@ -52,8 +54,9 @@ export class MuseFFT extends Component {
                 <button disabled={this.state.button_disabled} onClick={this.connect}>Connect Muse Headband</button>
                 <button disabled={!this.state.button_disabled} onClick={this.stop}>Stop Muse Headband</button>
                 <p>{this.state.status}</p>
+                <input style={{ width: '400px', height: '20px', backgroundColor: 'pink', margin: '100px'}} value={this.state.videoID} onChange={(e)=> {this.setState({videoID: e.target.value})}}/>
                 <YouTube
-                    videoId="2g811Eo7K8U"
+                    videoId={this.state.videoID}
                     opts={opts}
                     onReady={this._onReady}
                     onPlay={event => {
@@ -66,6 +69,7 @@ export class MuseFFT extends Component {
                             });
                         }
                     }}
+                    onEnd={this.stop}
                 />
                 <div style={chartSectionStyle}>
                     <div>
@@ -141,14 +145,16 @@ export class MuseFFT extends Component {
                 powerByBand()
             ).subscribe(
                 (data) => {
-                    let time = new Date();
+                    // let time = 0;
+                    time += 1;
                     this.setState(state => {
                         let obj = {
                             beta: this.normalize([data.beta[0], data.beta[1], data.beta[2], data.beta[3]]),
-                            time: new Date(time).toLocaleString('ru', {
-                                minute: '2-digit',
-                                second: '2-digit'
-                            })
+                            time: time
+                                // new Date(time).toLocaleString('ru', {
+                                // minute: '2-digit',
+                                // second: '2-digit'
+                            // })
 
                         };
                         finalData.push(obj);
