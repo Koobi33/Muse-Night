@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@neurosity/pipes": "^3.0.2",
-    "chart.js": "^2.7.2",
+    "chart.js": "^2.9.4",
     "muse-js": "^3.0.1",
     "react": "next",
     "react-chartjs-2": "^2.7.2",
